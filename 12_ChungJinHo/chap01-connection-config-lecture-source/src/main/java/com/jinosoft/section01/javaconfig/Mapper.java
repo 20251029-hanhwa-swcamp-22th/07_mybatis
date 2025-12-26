@@ -1,4 +1,4 @@
-package com.jinosoft.javaconfig;
+package com.jinosoft.section01.javaconfig;
 
 import org.apache.ibatis.annotations.Select;
 

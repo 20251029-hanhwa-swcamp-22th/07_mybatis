@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenuMapper">
+
+    <!-- 
+        resultMap: DB의 조회 결과 컬럼명과 DTO의 필드명을 매핑합니다.
+        id: 이 매핑 규칙을 식별하는 이름 (select 태그의 resultMap 속성에서 사용)
+        type: 매핑될 Java 객체의 타입 (패키지명 포함 풀 클래스명)
+    -->
+    <resultMap id="menuResultMap" type="com.jinosoft.section01.xmlconfig.MenuDTO">
+        <!-- id: PK 컬럼 매핑 -->
+        <id property="menuCode" column="menu_code"/>
+        <!-- result: 일반 컬럼 매핑 -->
+        <result property="menuName" column="menu_name"/>
+        <result property="menuPrice" column="menu_price"/>
+        <result property="categoryCode" column="category_code"/>
+        <result property="orderableStatus" column="orderable_status"/>
+    </resultMap>
+
+    <!-- 
+        select: 조회 작업을 수행합니다.
+        id: 구문 ID (DAO에서 호출 시 사용)
+        resultMap: 조회 결과를 매핑할 resultMap ID 참조
+    -->
+    <select id="selectAllMenu" resultMap="menuResultMap">
+        SELECT
+              menu_code
+            , menu_name
+            , menu_price
+            , category_code
+            , orderable_status
+          FROM tbl_menu
+         WHERE orderable_status = 'Y'
+         ORDER BY menu_code
+    </select>
+
+    <!-- 
+        parameterType: 파라미터로 전달받는 데이터의 타입 (여기서는 int의 alias인 _int 사용)
+        #{}: PreparedStatement의 파라미터 바인딩 (?와 동일 역할)
+    -->
+    <select id="selectMenuByMenuCode" parameterType="_int" resultMap="menuResultMap">
+        SELECT
+              menu_code
+            , menu_name
+            , menu_price
+            , category_code
+            , orderable_status
+          FROM tbl_menu
+         WHERE menu_code = #{menuCode}
+    </select>
+    
+    <!-- 
+        insert: 데이터 삽입 작업을 수행합니다.
+        parameterType: 전달받는 DTO 타입
+    -->
+    <insert id="insertMenu" parameterType="MenuDTO">
+        INSERT
+          INTO tbl_menu
+        (
+          menu_name
+        , menu_price
+        , category_code
+        , orderable_status
+        )
+        VALUES
+        (
+          #{menuName}
+        , #{menuPrice}
+        , #{categoryCode}
+        , 'Y'
+        )
+    </insert>
+
+    <!-- update: 데이터 수정 작업을 수행합니다. -->
+    <update id="updateMenu" parameterType="MenuDTO">
+        UPDATE
+               tbl_menu
+           SET menu_name = #{menuName}
+             , menu_price = #{menuPrice}
+             , category_code = #{categoryCode}
+         WHERE menu_code = #{menuCode}
+    </update>
+
+    <!-- delete: 데이터 삭제 작업을 수행합니다. -->
+    <delete id="deleteMenu" parameterType="_int">
+        DELETE
+          FROM tbl_menu
+         WHERE menu_code = #{menuCode}
+    </delete>
+
+
+    
+
+</mapper>
