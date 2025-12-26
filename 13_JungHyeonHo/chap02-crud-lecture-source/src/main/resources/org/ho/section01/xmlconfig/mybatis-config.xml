@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- .dtd파일이 아래 태그들을 정의함 -->
+<configuration>
+
+    <typeAliases>
+        <typeAlias type="org.ho.section01.xmlconfig.MenuDTO" alias="MenuDTO"/>
+    </typeAliases>
+
+<!--    environments 객체를 저장-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+<!--                커넥션 풀을 사용하겠다 -->
+<!--                <property name="driver" value="${driver}"/>-->
+<!--                일반적으로 공식문서에 ${}라고 써져있으면 채워넣으라는 뜻 -->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/menudb"/>
+                <property name="username" value="swcamp"/>
+                <property name="password" value="swcamp"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="org/ho/section01/xmlconfig/menu-mapper.xml"/>
+<!--        mapper.xml을 등록한다-->
+    </mappers>
+</configuration>

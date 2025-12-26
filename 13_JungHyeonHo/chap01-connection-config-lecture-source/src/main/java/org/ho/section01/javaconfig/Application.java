@@ -29,9 +29,11 @@ public class Application {
      *  - 사용이 끝난 커넥션은 반환 받음
      * */
     Environment environment = new Environment(
-        "dev",
+        "dev",  // 환경의 닉네임 => 추후 spring-profile에서 값만 변경하면 여러 환경을 사용할 수 있다
         new JdbcTransactionFactory(),
         new PooledDataSource(DRIVER, URL, USER, PASSWORD)
+        // 기존에 getConnection()을 해서 Connection을 가져오는데(객체생성)
+        // 이제는 Connection Pool에서 대여한다. 이미 만들어져있기에 속도가 빠르다(서버 킬때는 느림)
     );
 
     /* 2. Configuration 객체 생성
@@ -57,7 +59,7 @@ public class Application {
 
     /* 6. Mapper 인터페이스 꺼내기
      * - 마이바티스가 Mapper 인터페이스를
-     *   상속 받은 구현체(프록시)를 알아서 만들어 반환
+     *   상속 받은 구현체(Proxy객체)를 알아서 만들어 반환
      * */
     Mapper mapper = sqlSession.getMapper(Mapper.class);
 
