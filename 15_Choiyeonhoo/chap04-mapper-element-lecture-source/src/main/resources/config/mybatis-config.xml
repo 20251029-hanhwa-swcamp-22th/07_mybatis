@@ -11,7 +11,8 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.mycompany.common.MenuDTO" alias="MenuDTO"/>
+        <!-- 지정된 패키지 이하의 모든 클래스를 패키지명 제외한 형태로 별칭 등록-->
+        <package name="com.mycompany"/>
     </typeAliases>
 
     <environments default="development">
@@ -27,7 +28,6 @@
     </environments>
 
     <mappers>
-        <package name="com.mycompany.section01.xml"/>
-        <package name="com.mycompany.section02.provider"/>
+        <package name="com.mycompany"/>
     </mappers>
 </configuration>
