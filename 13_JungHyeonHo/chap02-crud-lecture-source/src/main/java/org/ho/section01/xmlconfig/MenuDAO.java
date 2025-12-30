@@ -16,7 +16,7 @@ public class MenuDAO {
   }
 
 
-  public MenuDTO selectMenyByMenuCode(SqlSession sqlSession, int menuCode) {
+  public MenuDTO selectManyByMenuCode(SqlSession sqlSession, int menuCode) {
     return sqlSession.selectOne("MenuMapper.selectMenuByMenuCode",menuCode);
   }
 

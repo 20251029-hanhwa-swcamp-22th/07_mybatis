@@ -49,7 +49,7 @@ public class MenuService {
 
     SqlSession sqlSession = getSqlSession();
 
-    MenuDTO menu = menuDAO.selectMenyByMenuCode(sqlSession, menuCode);
+    MenuDTO menu = menuDAO.selectManyByMenuCode(sqlSession, menuCode);
 
     sqlSession.close();
     return menu;

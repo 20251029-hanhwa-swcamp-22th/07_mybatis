@@ -28,6 +28,6 @@
 
     <mappers>
         <package name="org.ho.section01.xml"/>
-<!--        <package name="org.ho.section02.provider"/>-->
+        <package name="org.ho.section02.provider"/>
     </mappers>
 </configuration>

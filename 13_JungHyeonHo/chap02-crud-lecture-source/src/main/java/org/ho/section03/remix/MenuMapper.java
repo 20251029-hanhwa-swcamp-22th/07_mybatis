@@ -9,7 +9,6 @@ public interface MenuMapper {
 
   MenuDTO selectMenuByMenuCode(int menuCode);
 
-
   int insertMenu(MenuDTO menu);
 
   int updateMenu(MenuDTO menu);
