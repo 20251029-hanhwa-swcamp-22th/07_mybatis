@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 /* DTO(Data Transfer Object)
 * 계층간 이동 (클래스 사이 이동)
 * 전달하고 싶은 데이터만 팔드로 작성
@@ -47,6 +48,7 @@ public class OrderService {
      * @param orderMenuDTOs
      */
 
+    // 선언적 트랜잭션 처리 어노테이션
     @Transactional (
             isolation = Isolation.DEFAULT, // 하나의 트랜잭션으로 처리
             propagation = Propagation.REQUIRED, // 트랜잭션이 있으면 참여, 없으면 생성
@@ -84,6 +86,10 @@ public class OrderService {
         orderMenus.forEach(orderMenu -> {
             orderMapper.insertOrderMenu(orderMenu);
         });
+        // 강제로 예외를 발생
+        // @Transactional 어노테이션이 작성된 서비스 메서드에서
+        // 예외가 발생한 경우 rollback이 되는지 확인
+        if(1==1)throw new RuntimeException();
 
     }
 }

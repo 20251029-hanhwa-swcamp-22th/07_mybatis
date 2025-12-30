@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class OrderServiceIntegrationTest {
+class OrderServiceTest {
 
     @Autowired
     private OrderService orderService;
@@ -36,7 +36,7 @@ class OrderServiceIntegrationTest {
         menuDTO1.setOrderAmount(2);
 
         OrderMenuDTO menuDTO2 = new OrderMenuDTO();
-        menuDTO2.setMenuCode(2);
+        menuDTO2.setMenuCode(3);
         menuDTO2.setOrderAmount(3);
 
         List<OrderMenuDTO> orderMenuDTOS = Arrays.asList(menuDTO1, menuDTO2);
@@ -59,7 +59,7 @@ class OrderServiceIntegrationTest {
         String orderDate = jdbcTemplate.queryForObject(
                 "SELECT order_date FROM tbl_order", String.class
         );
-        assertThat(orderDate).isEqualTo("20251239");
+        assertThat(orderDate).isEqualTo("20251229");
 
     }
 

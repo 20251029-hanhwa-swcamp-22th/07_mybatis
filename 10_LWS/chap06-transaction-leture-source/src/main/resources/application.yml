@@ -1,15 +1,16 @@
-datasource:
-  driver-class-name: org.mariadb.jdbc.Driver
-  url: jdbc:mariadb://localhost:3306/menudb
-  username: swcamp
-  password: swcamp
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/menudb
+    username: swcamp
+    password: swcamp
 
-# mybatis config ??
+# mybatis config ?? 들여쓰기로 인해 주소 오류
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
   type-aliases-package: com.ohgiraffers.transaction
 
-  # Mapper ?????? ??? xml?? ??
-  mapper-locations: classpath:mappers/**/*.xml
+# Mapper ?????? ??? xml?? ??
+  mapper-locations: mappers/*.xml
 
