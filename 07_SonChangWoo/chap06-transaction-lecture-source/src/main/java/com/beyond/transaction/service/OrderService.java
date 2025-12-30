@@ -77,9 +77,15 @@ public class OrderService {
     }).collect(Collectors.toList());
 
 
+    // 메뉴 정보 삽입
     orderMenus.forEach(orderMenu -> {
       orderMapper.insertOrderMenu(orderMenu);
     });
+
+    // 강제로 예외 발생
+    // * @Transactional 어노테이션이 작성된 서비스 메서드에서
+    //    예외가 발생할 경우 rollback이 되는지 확인
+    if (1==1) throw new RuntimeException();
 
   }
 

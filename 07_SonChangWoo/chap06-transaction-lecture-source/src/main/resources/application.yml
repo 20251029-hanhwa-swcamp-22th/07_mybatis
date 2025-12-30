@@ -9,10 +9,10 @@ spring:
     password: swcamp
 
 # mybatis config ??
-  mybatis:
-    configuration:
-      map-underscore-to-camel-case: true
-    type-aliases-package: com.beyond.transaction
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.beyond.transaction
 
-    # Mapper ?????? ??? xml ?? ??
-    mapper-locations: classpath:mappers/**/*.xml
+  # Mapper ?????? ??? xml ?? ??
+  mapper-locations: mappers/*.xml
