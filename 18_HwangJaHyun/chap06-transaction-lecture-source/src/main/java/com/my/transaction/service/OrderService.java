@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 public class OrderService {
   private final OrderMapper orderMapper;
 
-//  public OrderService(OrderMapper orderMapper) {
-//    this.orderMapper = orderMapper;
-//  }
   /**
    * 주문 등록 메서드
    * @param orderDTO

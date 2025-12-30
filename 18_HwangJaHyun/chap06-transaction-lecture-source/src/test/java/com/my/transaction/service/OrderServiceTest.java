@@ -13,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class OrderServiceTest {
+class OrderServiceIntegrationTest {
 
   @Autowired
   private OrderService orderService;
