@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jinosoft.section01.xml.DynamicSqlMapper">
+
+    <select id="searchMenu" resultType="MenuDTO">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+        <if test="condition == 'category'">
+         WHERE A.CATEGORY_CODE = #{ value }
+        </if>
+        <if test="condition == 'name'">
+         WHERE A.MENU_NAME LIKE CONCAT('%', #{ value }, '%')
+        </if>
+    </select>
+
+    <select id="selectMenuByPrice" resultType="MenuDTO">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+         WHERE A.ORDERABLE_STATUS = 'Y'
+        <if test="price > 0 and 10000 >= price">
+           AND A.MENU_PRICE <![CDATA[ < ]]> #{ price }
+        </if>
+        <if test="price > 10000 and 20000 >= price">
+           AND A.MENU_PRICE BETWEEN 10000 AND #{ price }
+        </if>
+        <if test="price > 20000 and 30000 >= price">
+           AND A.MENU_PRICE BETWEEN 20000 AND #{ price }
+        </if>
+        <if test="price > 30000">
+           AND A.MENU_PRICE BETWEEN 30000 AND #{ price }
+        </if>
+    </select>
+
+    <select id="searchMenuBySupCategory" resultType="MenuDTO">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+         WHERE A.ORDERABLE_STATUS = 'Y'
+        <choose>
+            <when test="value == 'shiksa'">
+                AND A.CATEGORY_CODE IN (4, 5, 6, 7)
+            </when>
+            <when test="value == 'drink'">
+                AND A.CATEGORY_CODE IN (8, 9, 10)
+            </when>
+            <otherwise>
+                AND A.CATEGORY_CODE IN (11, 12)
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="searchMenuByRandomMenuCode" resultType="MenuDTO">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+         WHERE A.ORDERABLE_STATUS = 'Y'
+           AND A.MENU_CODE IN
+        <foreach collection="randomMenuCodeList" item="menuCode" open="(" separator="," close=")">
+            #{ menuCode }
+        </foreach>
+    </select>
+
+    <select id="searchMenuByNameOrCategory" resultType="MenuDTO">
+        SELECT
+               A.MENU_CODE
+             , A.MENU_NAME
+             , A.MENU_PRICE
+             , A.CATEGORY_CODE
+             , A.ORDERABLE_STATUS
+          FROM TBL_MENU A
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="nameValue != null">
+               A.MENU_NAME LIKE CONCAT('%', #{ nameValue }, '%')
+            </if>
+            <if test="categoryValue != null">
+               AND A.CATEGORY_CODE = #{ categoryValue }
+            </if>
+        </trim>
+    </select>
+
+    <update id="updateMenu">
+        UPDATE TBL_MENU
+        <set>
+            <if test="menuName != null and menuName != ''">
+                MENU_NAME = #{ menuName },
+            </if>
+            <if test="categoryCode != null and categoryCode > 0">
+                CATEGORY_CODE = #{ categoryCode },
+            </if>
+            <if test="orderableStatus != null and orderableStatus != ''">
+                ORDERABLE_STATUS = #{ orderableStatus },
+            </if>
+        </set>
+         WHERE MENU_CODE = #{ menuCode }
+    </update>
+
+</mapper>
