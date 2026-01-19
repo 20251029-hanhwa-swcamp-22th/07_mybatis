@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+MapperInterface와 Mapper XML을 연동하는 방법
+1. 인터페이스(java폴더)와 xml(resources)이 동일한 경로에 같은 이름으로 존재
+2. 인터페이스의 풀 네임 (패키지명+인터페이스명)을 namespace에 작성
+3. 인터페이스 의 메서드명과 xml의 SQL id, 리턴 타입을 동일하게 작성
+-->
+<mapper namespace="com.ohgiraffers.section03.remix.MenuMapper">
+
+    <select id="selectAllMenu" resultType="MenuDTO">
+        SELECT
+        menu_code,
+        menu_price,
+        menu_name,
+        category_code,
+        orderable_status
+        FROM
+        tbl_menu
+        WHERE
+        orderable_status = 'Y'
+        ORDER BY
+        menu_code ASC
+
+    </select>
+
+
+    <!--
+    메뉴 코드가 일치하는 메뉴 조회
+    - 전달 받은 파라미터의 이름을 #{} 내부에 작성하면
+        해당 위치에 해당 값이 대입된다.
+
+      -  파라미터가 기본 자료형인 경우
+         ->    #{} 내부 명칠 관계 없이 무조건 대입가능
+
+
+     -   파라미터가 기본 자료형이 아니라 객체 타입인 경우
+        -> #{} 내부 명칭을 필드명 또느 key값과 일치 시켜야 알맞게 대입됨
+    -->
+
+    <select id="selectMenuByMenuCode" resultType="MenuDTO" parameterType="_int" >
+
+        SELECT
+          menu_code,
+          menu_price,
+          menu_name,
+           category_code,
+          orderable_status
+        FROM
+             tbl_menu
+        WHERE
+             menu_code = #{menuCode}
+    </select>
+
+    <insert id="insertMenu" parameterType="com.ohgiraffers.section01.xmlconfig.MenuDTO">
+        INSERT INTO tbl_menu(
+
+        menu_name,
+        menu_price,
+            category_code,
+            orderable_status)
+        VALUES(
+        #{menuName},
+        #{menuPrice},
+        #{categoryCode},
+        'Y'
+        )
+
+    </insert>
+
+    <update id="updateMenu" parameterType="MenuDTO">
+       <!-- 1 --> UPDATE tbl_menu
+
+        <!-- 3 -->    SET menu_name = #{ menuName }
+                      , menu_price = #{ menuPrice }
+                         , category_code = #{ categoryCode }
+
+        <!-- 3 -->  WHERE menu_code = #{ menuCode }
+
+    </update>
+
+    <!-- parameterType은 optional(선택적) 속성으로
+        작성되지 않으면 Mybatis의 TypeHandler가 알아서 추론함
+        -->
+    <delete id="deleteMenu"> <!--parameterType="_int"-->
+
+
+        <!-- 1 -->
+
+        DELETE
+
+        <!-- 3 -->
+
+        FROM tbl_menu
+
+        <!-- 3 -->
+
+        WHERE menu_code = #{ menuCode }
+
+    </delete>
+</mapper>
