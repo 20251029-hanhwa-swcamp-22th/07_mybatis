@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
+    <!-- 연결정보 읽어오기-->
     <properties resource="config/connection-info.properties"/>
 
     <settings>
@@ -11,7 +11,8 @@
     </settings>
 
     <typeAliases>
-        <typeAlias type="com.google.common.MenuDTO" alias="MenuDTO"/>
+        <!-- 지정된 패키지 이하의 모든 클래스를 패키지명 제외한 형태로 별칭 등록 -->
+        <package name="com.google"/>
     </typeAliases>
 
     <environments default="development">
@@ -27,7 +28,6 @@
     </environments>
 
     <mappers>
-        <package name="com.google.section01.xml"/>
-        <package name="com.google.section02.provider"/>
+        <package name="com.google"/>
     </mappers>
 </configuration>

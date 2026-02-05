@@ -127,8 +127,9 @@ public class Application {
         MenuService menuService = new MenuService();
         do {
             System.out.println("===== trim 서브 메뉴 =====");
-            System.out.println("1. 메뉴 혹은 카테고리 코드로 검색, 단 메뉴와 카테고리 둘 다 일치하는 경우도 검색하며, " +
-                    "검색 조건이 없는 경우에는 전체 검색");
+            System.out.println("1. 메뉴 혹은 카테고리 코드로 검색," +
+                "단 메뉴와 카테고리 둘 다 일치하는 경우도 검색하며, " +
+                "검색 조건이 없는 경우에는 전체 검색");
             System.out.println("2. 원하는 메뉴 정보만 수정");
             System.out.println("9. 이전 메뉴로");
             System.out.print("메뉴 번호 입력 : ");
@@ -179,14 +180,14 @@ public class Application {
     private static Map<String, Object> inputChangeInfo() {
 
         Scanner sc = new Scanner(System.in);
-        System.out.print("변경할 메뉴 코드 입력 : ");
+        System.out.print("변경할 메뉴 코드 입력(필수) : ");
         int menuCode = sc.nextInt();
-        System.out.print("변경할 메뉴 이름 입력 : ");
+        System.out.print("변경할 메뉴 이름 입력 변경X -> 엔터 : ");
         sc.nextLine();
         String menuName = sc.nextLine();
-        System.out.print("변경할 카테고리 코드 입력 : ");
+        System.out.print("변경할 카테고리 코드 입력 변경X -> 0 : ");
         int categoryCode = sc.nextInt();
-        System.out.print("변경할 판매여부 입력 : ");
+        System.out.print("변경할 판매여부 입력 변경X -> 엔터 : ");
         sc.nextLine();
         String orderableStatus = sc.nextLine();
 
